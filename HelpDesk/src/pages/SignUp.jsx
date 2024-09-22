@@ -28,6 +28,8 @@ const SignUpPage = () => {
             });
 
             console.log('User signed up and saved:', user);
+            setEmail('');
+            setPassword('');
         } catch (error) {
             console.error('Error signing up:', error);
         }

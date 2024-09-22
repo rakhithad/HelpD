@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase'; // Your firebase config
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();  // useNavigate hook for navigation
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -12,6 +14,7 @@ const LoginPage = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             console.log('User logged in:', user);
+            navigate('/');  // Redirect to the homepage after login
         } catch (error) {
             console.error('Error logging in:', error);
         }

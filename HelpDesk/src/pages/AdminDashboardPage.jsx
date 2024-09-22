@@ -1,18 +1,23 @@
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboardPage = () => {
+    const navigate = useNavigate();
+
+    const handleSignUpClick = () => {
+        
+        navigate('/signup');
+    };
+
+    const handleDoneClick = () => {
+        // Navigate to the home page
+        navigate('/');
+    };
+
     return (
         <div>
-            <h1>Admin Dashboard</h1>
-            <div>
-                <h2>Manage Tickets</h2>
-                <p>Here you can assign, update, and delete tickets.</p>
-                {/* Add components or links for managing tickets */}
-            </div>
-            <div>
-                <h2>Manage Users</h2>
-                <p>Here you can create, update, and delete user accounts.</p>
-                {/* Add components or links for managing users */}
-            </div>
+            <h2>Admin Dashboard</h2>
+            <button onClick={handleSignUpClick}>Go to Sign Up</button>
+            <button onClick={handleDoneClick}>Done</button>
         </div>
     );
 };
