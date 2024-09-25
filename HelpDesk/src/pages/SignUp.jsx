@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { auth } from '../firebase'; // Your firebase config
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('customer'); // Default role is 'customer'
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +36,10 @@ const SignUpPage = () => {
             console.error('Error signing up:', error);
         }
     };
+    const handleDoneClick = () => {
+        // Navigate to the admin page
+        navigate('/admin-dashboard');
+    };
 
     return (
         <div>
@@ -59,6 +65,7 @@ const SignUpPage = () => {
                     <option value="support_engineer">Support Engineer</option>
                 </select>
                 <button type="submit">Sign Up</button>
+                <button onClick={handleDoneClick}>Done</button>
             </form>
         </div>
     );
