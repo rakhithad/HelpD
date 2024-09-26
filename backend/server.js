@@ -5,6 +5,15 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const Ticket = require('./models/Ticket');
+// Drop the unique index on the 'uid' field if it exists
+Ticket.collection.dropIndex('uid_1', function(err, result) {
+    if (err) {
+        console.error('Error dropping unique index on uid:', err.message);
+    } else {
+        console.log('Successfully dropped the unique index on uid');
+    }
+});
 
 const app = express();
 const port = process.env.PORT || 5000;

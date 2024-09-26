@@ -3,16 +3,17 @@ const express = require('express');
 const router = express.Router();
 const Ticket = require('../models/Ticket');
 
-// Get all tickets
-router.get('/', async (req, res) => {
+// Route to get tickets for a specific user (filtered by UID)
+router.get('/api/tickets', async (req, res) => {
     try {
-        console.log('GET /tickets');
-        const tickets = await Ticket.find();
+        const { uid } = req.query;  // Assume the user's UID is sent as a query param
+        const tickets = await Ticket.find({ uid });  // Filter tickets by UID
         res.json(tickets);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving tickets', error });
     }
 });
+
 
 // Get a single ticket
 router.get('/:id', async (req, res) => {
@@ -25,23 +26,33 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Create a new ticket
+// POST route to create a new ticket
 router.post('/', async (req, res) => {
-    const { title, description, status, priority } = req.body;
-    const ticket = new Ticket({
-        title,
-        description,
-        status,
-        priority,
-    });
-
     try {
-        const newTicket = await ticket.save();
-        res.status(201).json(newTicket);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+        const { title, description, status, priority, uid } = req.body;
+
+        // Validate required fields
+        if (!title || !description || !status || !priority || !uid) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        // Create and save the ticket in the database
+        const newTicket = new Ticket({
+            title,
+            description,
+            status,
+            priority,
+            uid,  // UID from Firebase
+        });
+
+        const savedTicket = await newTicket.save();
+        res.status(201).json(savedTicket);
+    } catch (error) {
+        console.error('Error creating ticket:', error);
+        res.status(500).json({ message: 'Internal Server Error', error });
     }
 });
+
 
 // Update a ticket
 router.patch('/:id', async (req, res) => {

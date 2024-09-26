@@ -14,6 +14,7 @@ const connectDB =() =>{
     console.error(err.message);
     process.exit(1);
   }
+
   const dbConnection = mongoose.connection;
   dbConnection.once("open", (_) => {
     console.log(`Database connected: ${url}`);
