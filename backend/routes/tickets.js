@@ -4,7 +4,7 @@ const router = express.Router();
 const Ticket = require('../models/Ticket');
 
 // Route to get tickets for a specific user (filtered by UID)
-router.get('/api/tickets', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const { uid } = req.query;  // Assume the user's UID is sent as a query param
         const tickets = await Ticket.find({ uid });  // Filter tickets by UID
