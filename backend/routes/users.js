@@ -25,4 +25,20 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/:uid', async (req, res) => {
+    console.log('UID received:', req.params.uid); // Debugging log
+    const { uid } = req.params;
+    try {
+        const user = await User.findOne({ uid: uid });
+        if (!user) {
+            console.log('User not found for UID:', uid); // More debugging info
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).json({ message: 'Error fetching user', error });
+    }
+});
+
 module.exports = router;

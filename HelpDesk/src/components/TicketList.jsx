@@ -1,32 +1,55 @@
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase'; // Firebase authentication
 import TicketItem from './TicketItem';
+import axios from 'axios';
 
 const TicketList = () => {
     const [tickets, setTickets] = useState([]);
     const [uid, setUid] = useState(null);
+    const [role, setRole] = useState(null); // Store role here
 
-    // Fetch the current user's UID from Firebase
-    const getCurrentUser = () => {
-        const user = auth.currentUser;
-        if (user) {
-            setUid(user.uid);
-        }
-    };
-
-    // Fetch tickets when the component loads
+    // Fetch the current user's UID and role from Firebase
     useEffect(() => {
-        getCurrentUser();  // Ensure current user is set
-    }, []);  // Empty dependency to run only once on mount
+        const fetchUser = () => {
+            const user = auth.currentUser;
+            if (user) {
+                setUid(user.uid);
+            }
+        };
+        fetchUser();
+    }, []);
 
+    // Fetch the user's role from the backend
     useEffect(() => {
-        if (uid) {  // Ensure uid is set before fetching tickets
-            fetch(`http://localhost:5000/api/tickets?uid=${uid}`)
-                .then((response) => response.json())
-                .then((data) => setTickets(data))
-                .catch((error) => console.error('Error fetching tickets:', error));
-        }
-    }, [uid]);  // Run this effect when uid is set
+        const fetchUserRole = async () => {
+            if (uid) {
+                try {
+                    const response = await axios.get(`http://localhost:5000/api/users/${uid}`);
+                    if (response.data && response.data.role) {
+                        setRole(response.data.role); // Set the user's role (admin, support_engineer, customer, etc.)
+                    }
+                } catch (error) {
+                    console.error('Error fetching user role:', error);
+                }
+            }
+        };
+        fetchUserRole();
+    }, [uid]); // Fetch the role when `uid` is available
+
+    // Fetch tickets when the user's UID and role are available
+    useEffect(() => {
+        const fetchTickets = async () => {
+            if (uid && role) {
+                try {
+                    const response = await axios.get(`http://localhost:5000/api/tickets?uid=${uid}&role=${role}`);
+                    setTickets(response.data);
+                } catch (error) {
+                    console.error('Error fetching tickets:', error);
+                }
+            }
+        };
+        fetchTickets();
+    }, [uid, role]); // Fetch tickets when both `uid` and `role` are available
 
     // Handle delete action
     const handleDelete = async (ticketId) => {
@@ -39,11 +62,15 @@ const TicketList = () => {
     };
 
     return (
-        <ul>
-            {tickets.map((ticket) => (
-                <TicketItem key={ticket._id} ticket={ticket} onDelete={handleDelete} />
-            ))}
-        </ul>
+        <div>
+            {tickets.length > 0 ? (
+                tickets.map((ticket) => (
+                    <TicketItem key={ticket._id} ticket={ticket} onDelete={handleDelete} />
+                ))
+            ) : (
+                <p>No tickets to display</p>
+            )}
+        </div>
     );
 };
 

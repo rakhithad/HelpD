@@ -13,6 +13,8 @@ const TicketItem = ({ ticket, onDelete }) => {
             <p>Priority: {ticket.priority}</p>
             <button onClick={() => onDelete(ticket._id)}>Delete</button>
         </div>
+
+        
     );
 };
 

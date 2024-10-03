@@ -3,17 +3,26 @@ const express = require('express');
 const router = express.Router();
 const Ticket = require('../models/Ticket');
 
-// Route to get tickets for a specific user (filtered by UID)
 router.get('/', async (req, res) => {
+    const { uid, role } = req.query;
+    console.log('Fetching tickets route hit');
+    console.log(`UID: ${uid}, Role: ${role}`);
+    
+
     try {
-        const { uid } = req.query;  // Assume the user's UID is sent as a query param
-        const tickets = await Ticket.find({ uid });  // Filter tickets by UID
+        let tickets;
+        if (role === 'admin' || role === 'support_engineer') {
+            tickets = await Ticket.find({});  // Admin and support engineers see all tickets
+        } else {
+            tickets = await Ticket.find({ uid });  // Customers only see their own tickets
+        }
+        console.log('Tickets found:', tickets);  // Debugging output
         res.json(tickets);
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving tickets', error });
+        console.error('Error fetching tickets:', error);
+        res.status(500).json({ message: 'Error fetching tickets', error });
     }
 });
-
 
 // Get a single ticket
 router.get('/:id', async (req, res) => {
