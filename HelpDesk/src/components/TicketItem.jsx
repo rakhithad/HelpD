@@ -35,8 +35,11 @@ const TicketItem = ({ ticket, onDelete, role }) => {
 
     return (
         <div>
-            <h3>{ticket.title}</h3>
+            <h3>{ticket.account}</h3>
+            <h2>{ticket.title}</h2>
             <p>{ticket.description}</p>
+            <p>{ticket.status}</p>
+            <p>{ticket.priority}</p>
             <p>Assigned Engineer: {assignedEngineer || 'Not Assigned'}</p>
             
             {role === 'admin' && (
@@ -59,6 +62,7 @@ const TicketItem = ({ ticket, onDelete, role }) => {
 TicketItem.propTypes = {
     ticket: PropTypes.shape({
         _id: PropTypes.string.isRequired,
+        account: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired,

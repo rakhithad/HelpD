@@ -38,15 +38,16 @@ router.get('/:id', async (req, res) => {
 // POST route to create a new ticket
 router.post('/', async (req, res) => {
     try {
-        const { title, description, status, priority, uid } = req.body;
+        const { account, title, description, status, priority, uid } = req.body;
 
         // Validate required fields
-        if (!title || !description || !status || !priority || !uid) {
+        if (!account || !title || !description || !status || !priority || !uid) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
         // Create and save the ticket in the database
         const newTicket = new Ticket({
+            account,
             title,
             description,
             status,

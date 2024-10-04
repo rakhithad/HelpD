@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const TicketForm = ({ onSubmit }) => {
+    const [account, setAccount] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('not started');
@@ -11,6 +12,7 @@ const TicketForm = ({ onSubmit }) => {
         e.preventDefault();
 
         const ticketData = {
+            account,
             title,
             description,
             status,
@@ -20,6 +22,7 @@ const TicketForm = ({ onSubmit }) => {
         onSubmit(ticketData);
 
         // Reset form fields
+        setAccount('');
         setTitle('');
         setDescription('');
         setStatus('not started');
@@ -28,6 +31,15 @@ const TicketForm = ({ onSubmit }) => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <div>
+                <label>Company or Person:</label>
+                <input
+                    type="text"
+                    value={account}
+                    onChange={(e) => setAccount(e.target.value)}
+                    required
+                />
+            </div>
             <div>
                 <label>Title:</label>
                 <input
