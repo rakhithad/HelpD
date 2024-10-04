@@ -54,18 +54,33 @@ const TicketList = () => {
     // Handle delete action
     const handleDelete = async (ticketId) => {
         try {
-            await fetch(`http://localhost:5000/api/tickets/${ticketId}`, { method: 'DELETE' });
+            await axios.delete(`http://localhost:5000/api/tickets/${ticketId}`);
             setTickets(tickets.filter(ticket => ticket._id !== ticketId));
         } catch (error) {
             console.error('Error deleting ticket:', error);
         }
     };
 
+    // **Handle update action**
+    const handleUpdate = (updatedTicket) => {
+        setTickets(prevTickets =>
+            prevTickets.map(ticket =>
+                ticket._id === updatedTicket._id ? updatedTicket : ticket
+            )
+        );
+    };
+
     return (
         <div>
             {tickets.length > 0 ? (
                 tickets.map((ticket) => (
-                    <TicketItem key={ticket._id} ticket={ticket} onDelete={handleDelete} role={role} />
+                    <TicketItem
+                        key={ticket._id}
+                        ticket={ticket}
+                        onDelete={handleDelete}
+                        onUpdate={handleUpdate}
+                        role={role}
+                    />
                 ))
             ) : (
                 <p>No tickets to display</p>

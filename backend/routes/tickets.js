@@ -64,18 +64,24 @@ router.post('/', async (req, res) => {
 });
 
 
-// Update a ticket
-router.patch('/:id', async (req, res) => {
+// PUT route to update a ticket
+router.put('/:id', async (req, res) => {
+    const ticketId = req.params.id;
+    const { account, title, description, status, priority } = req.body;
+
     try {
         const updatedTicket = await Ticket.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
+            ticketId,
+            { account, title, description, status, priority },
+            { new: true } // Return the updated document
         );
-        if (!updatedTicket) return res.status(404).json({ message: 'Ticket not found' });
-        res.json(updatedTicket);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+        if (updatedTicket) {
+            res.status(200).json(updatedTicket);
+        } else {
+            res.status(404).json({ error: 'Ticket not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update ticket' });
     }
 });
 
