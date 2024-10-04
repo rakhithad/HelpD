@@ -41,12 +41,51 @@ router.get('/:uid', async (req, res) => {
     }
 });
 
+// Route to get all users or filter by role using query parameters
 router.get('/', async (req, res) => {
+    const { role } = req.query; // Get role from query parameters
+
     try {
-        const supportEngineers = await User.find({ role: 'support_engineer' });
-        res.status(200).json(supportEngineers);
+        // If a role is specified, fetch users with that role, otherwise get all users
+        const users = role ? await User.find({ role }) : await User.find({});
+        res.status(200).json(users);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch support engineers' });
+        console.error('Error fetching users:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+router.put('/:uid', async (req, res) => {
+    const { uid } = req.params;
+    const { fullName, lastName, phoneNumber, location } = req.body;
+
+    try {
+        const user = await User.findOneAndUpdate(
+            { uid },
+            { fullName, lastName, phoneNumber, location },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ message: 'User updated successfully', user });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+router.delete('/:uid', async (req, res) => {
+    const { uid } = req.params;
+    try {
+        // Assuming you have a deleteUser function to remove the user from the database
+        await User.deleteOne({ uid });
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete user' });
     }
 });
 

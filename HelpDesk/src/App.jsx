@@ -11,6 +11,7 @@ import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import SignUpPage from './pages/SignUp';
 import LoginPage from './pages/Login';
+import ManageUsers from './pages/ManageUsers';
 
 function App() {
     const [user, setUser] = React.useState(null);
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/view-tickets" element={<><ViewTicketsPage /></>} />
                 <Route path="/ticket/:id" element={<><TicketDetailsPage /></>} />
                 <Route path="/admin-dashboard" element={<><AdminDashboardPage /></>} />
+                <Route path="/manage-users" element={<><ManageUsers /></>} />
                 <Route path="/engineer-dashboard" element={<><SupportEngineerDashboardPage /></>} />
                 <Route path="/tickets/:id/edit" element={<><UpdateTicketPage /></>} />
             </Routes>

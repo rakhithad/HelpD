@@ -18,16 +18,17 @@ const TicketItem = ({ ticket, onDelete, onUpdate, role }) => {
         // Fetch all support engineers for admin to select from
         const fetchSupportEngineers = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users');
+                const response = await axios.get('http://localhost:5000/api/users?role=support_engineer');
                 setSupportEngineers(response.data);
             } catch (error) {
                 console.error('Error fetching support engineers:', error);
             }
         };
 
-        if (role === 'admin') {
+        if (role === 'admin'){
             fetchSupportEngineers();
         }
+        
     }, [role]);
 
     const handleAssignEngineer = async (e) => {
@@ -103,8 +104,8 @@ const TicketItem = ({ ticket, onDelete, onUpdate, role }) => {
                 </div>
             ) : (
                 <div>
-                    <h3>{ticket.account}</h3>
-                    <h2>{ticket.title}</h2>
+                    <h2>{ticket.account}</h2>
+                    <h3>{ticket.title}</h3>
                     <p>{ticket.description}</p>
                     <p>Status: {ticket.status}</p>
                     <p>Priority: {ticket.priority}</p>
