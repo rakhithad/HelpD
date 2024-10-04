@@ -65,7 +65,7 @@ const TicketList = () => {
         <div>
             {tickets.length > 0 ? (
                 tickets.map((ticket) => (
-                    <TicketItem key={ticket._id} ticket={ticket} onDelete={handleDelete} />
+                    <TicketItem key={ticket._id} ticket={ticket} onDelete={handleDelete} role={role} />
                 ))
             ) : (
                 <p>No tickets to display</p>

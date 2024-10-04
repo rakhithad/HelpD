@@ -41,4 +41,13 @@ router.get('/:uid', async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const supportEngineers = await User.find({ role: 'support_engineer' });
+        res.status(200).json(supportEngineers);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch support engineers' });
+    }
+});
+
 module.exports = router;

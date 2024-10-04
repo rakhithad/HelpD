@@ -89,4 +89,19 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.put('/:ticketId/assign', async (req, res) => {
+    const { ticketId } = req.params;
+    const { supportEngineerId } = req.body;  // UID of the support engineer
+
+    try {
+        const ticket = await Ticket.findByIdAndUpdate(ticketId, {
+            assignedSupportEngineer: supportEngineerId || 'Not Assigned'
+        }, { new: true });
+
+        res.status(200).json(ticket);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to assign support engineer' });
+    }
+});
+
 module.exports = router;
