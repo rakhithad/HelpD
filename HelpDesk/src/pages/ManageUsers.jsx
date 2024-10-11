@@ -76,7 +76,7 @@ const ManageUsers = () => {
                     <thead>
                         <tr>
                             <th>UID</th>
-                            <th>Full Name</th>
+                            <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Role</th>
@@ -93,11 +93,11 @@ const ManageUsers = () => {
                                     {editUser === user.uid ? (
                                         <input
                                             type="text"
-                                            value={user.fullName}
-                                            onChange={(e) => handleInputChange(user.uid, 'fullName', e.target.value)}
+                                            value={user.firstName}
+                                            onChange={(e) => handleInputChange(user.uid, 'firstName', e.target.value)}
                                         />
                                     ) : (
-                                        user.fullName
+                                        user.firstName
                                     )}
                                 </td>
                                 <td>

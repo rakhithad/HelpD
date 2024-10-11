@@ -7,6 +7,10 @@ const SignUpPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('customer'); // Default role is 'customer'
+    const [firstName, setFirstName] = useState(''); // Optional fields
+    const [lastName, setLastName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [location, setLocation] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -24,20 +28,29 @@ const SignUpPage = () => {
                 body: JSON.stringify({
                     uid: user.uid,
                     email,
-                    password,
+                    password, // Typically, you wouldn't save the password in plain text
                     role,
+                    firstName,
+                    lastName,
+                    phoneNumber,
+                    location,
                 }),
             });
 
             console.log('User signed up and saved:', user);
             setEmail('');
             setPassword('');
+            setFirstName('');
+            setLastName('');
+            setPhoneNumber('');
+            setLocation('');
         } catch (error) {
             console.error('Error signing up:', error);
         }
     };
+
     const handleDoneClick = () => {
-        // Navigate to the admin page
+        // Navigate to the admin page after signup
         navigate('/admin-dashboard');
     };
 
@@ -59,13 +72,37 @@ const SignUpPage = () => {
                     placeholder="Password"
                     required
                 />
+                <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="Full Name"
+                />
+                <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Last Name"
+                />
+                <input
+                    type="text"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    placeholder="Phone Number"
+                />
+                <input
+                    type="text"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Location"
+                />
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                     <option value="customer">Customer</option>
                     <option value="admin">Admin</option>
                     <option value="support_engineer">Support Engineer</option>
                 </select>
                 <button type="submit">Sign Up</button>
-                <button onClick={handleDoneClick}>Done</button>
+                <button type="button" onClick={handleDoneClick}>Done</button>
             </form>
         </div>
     );
