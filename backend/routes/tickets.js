@@ -38,15 +38,16 @@ router.get('/:id', async (req, res) => {
 // POST route to create a new ticket
 router.post('/', async (req, res) => {
     try {
-        const { account, title, description, status, priority, uid } = req.body;
+        const { tid, account, title, description, status, priority, uid } = req.body;
 
         // Validate required fields
-        if (!account || !title || !description || !status || !priority || !uid) {
+        if (!tid || !account || !title || !description || !status || !priority || !uid) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
         // Create and save the ticket in the database
         const newTicket = new Ticket({
+            tid,
             account,
             title,
             description,
@@ -110,5 +111,24 @@ router.put('/:ticketId/assign', async (req, res) => {
         res.status(500).json({ error: 'Failed to assign support engineer' });
     }
 });
+
+router.get('/', async (req, res) => {
+    try {
+        const engineerId = req.query.assignedSupportEngineer;
+        console.log(`Fetching tickets route hit`);
+        console.log(`UID: ${engineerId}`);
+        if (!engineerId) {
+            return res.status(400).json({ error: 'Support engineer ID is required' });
+        }
+        
+        const tickets = await Ticket.find({ assignedSupportEngineer: engineerId });
+        console.log(tickets); // Log the tickets to see if they exist
+        res.status(200).json(tickets);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching tickets for the engineer' });
+    }
+});
+
+
 
 module.exports = router;

@@ -12,6 +12,7 @@ const TicketForm = ({ onSubmit }) => {
         e.preventDefault();
 
         const ticketData = {
+            tid: Math.floor(Math.random() * 1000), // Random ticket ID
             account,
             title,
             description,

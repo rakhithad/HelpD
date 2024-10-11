@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
+    tid: { type: Number, required: true, index: false },
     account: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
