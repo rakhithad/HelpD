@@ -11,6 +11,7 @@ const HomePage = () => {
                     <li><Link to="/view-tickets">View Tickets</Link></li>
                     <li><Link to="/admin-dashboard">Admin Dashboard</Link></li>
                     <li><Link to="/engineer-dashboard">Support Engineer Dashboard</Link></li>
+                    <li><Link to="/user-account">Account</Link></li>
                 </ul>
             </nav>
         </div>

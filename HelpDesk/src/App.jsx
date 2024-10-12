@@ -12,6 +12,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import SignUpPage from './pages/SignUp';
 import LoginPage from './pages/Login';
 import ManageUsers from './pages/ManageUsers';
+import UserAccount from './pages/UserAccount';
+
 
 function App() {
     const [user, setUser] = React.useState(null);
@@ -38,6 +40,7 @@ function App() {
                 <Route path="/manage-users" element={<><ManageUsers /></>} />
                 <Route path="/engineer-dashboard" element={<><SupportEngineerDashboardPage /></>} />
                 <Route path="/tickets/:id/edit" element={<><UpdateTicketPage /></>} />
+                <Route path="/user-account" element={<><UserAccount /></>} />
             </Routes>
         </Router>
     );
