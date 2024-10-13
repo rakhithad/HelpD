@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import TicketForm from '../components/TicketForm';
 import { auth } from '../firebase'; // Import Firebase auth to get the logged-in user
+import Navbar from '../components/Navbar';
+
 
 const CreateTicketPage = () => {
     const navigate = useNavigate();
-    
 
     const handleSubmit = async (ticketData) => {
         try {
@@ -37,15 +38,26 @@ const CreateTicketPage = () => {
             console.error('Error creating ticket:', error);
         }
     };
-    
 
-    
     return (
-        <div>
-            <h2>Create Ticket</h2>
-            <TicketForm onSubmit={handleSubmit} />
-            <button type="button" onClick={() => navigate('/')}>Done</button>
+        <>
+        <Navbar/>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+            <h2 className="text-2xl font-bold mb-6">Create Ticket</h2>
+            <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
+                <TicketForm onSubmit={handleSubmit} />
+                <button
+                    type="button"
+                    onClick={() => navigate('/home')}
+                    className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200"
+                >
+                    Done
+                </button>
+            </div>
         </div>
+        </>
+        
+        
     );
 };
 

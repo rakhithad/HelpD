@@ -61,30 +61,34 @@ const TicketItem = ({ ticket, onDelete, onUpdate, role }) => {
     };
 
     return (
-        <div>
+        <div className="border border-gray-300 rounded-lg p-4 mb-4 bg-white shadow-md">
             {isEditing ? (
-                <div>
+                <div className="space-y-4">
                     <input
                         type="text"
                         name="account"
                         value={updatedTicket.account}
                         onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded-md"
                     />
                     <input
                         type="text"
                         name="title"
                         value={updatedTicket.title}
                         onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded-md"
                     />
                     <textarea
                         name="description"
                         value={updatedTicket.description}
                         onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded-md"
                     />
                     <select
                         name="status"
                         value={updatedTicket.status}
                         onChange={handleChange}
+                        className="w-full border border-gray-300 p-2 rounded-md"
                     >
                         <option value="not started">Not Started</option>
                         <option value="in progress">In Progress</option>
@@ -98,21 +102,38 @@ const TicketItem = ({ ticket, onDelete, onUpdate, role }) => {
                         onChange={handleChange}
                         min="1"
                         max="5"
+                        className="w-full border border-gray-300 p-2 rounded-md"
                     />
-                    <button onClick={handleUpdate}>Update</button>
-                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                    <div className="flex space-x-2">
+                        <button 
+                            onClick={handleUpdate} 
+                            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                        >
+                            Update
+                        </button>
+                        <button 
+                            onClick={() => setIsEditing(false)} 
+                            className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400"
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <div>
-                    <h2>{ticket.account}</h2>
-                    <h3>{ticket.title}</h3>
-                    <p>{ticket.description}</p>
-                    <p>Status: {ticket.status}</p>
-                    <p>Priority: {ticket.priority}</p>
-                    <p>Assigned Engineer: {assignedEngineer || 'Not Assigned'}</p>
+                    <h2 className="text-lg font-semibold">{ticket.account}</h2>
+                    <h3 className="text-md font-bold">{ticket.title}</h3>
+                    <p className="text-gray-700">{ticket.description}</p>
+                    <p className="text-gray-500">Status: {ticket.status}</p>
+                    <p className="text-gray-500">Priority: {ticket.priority}</p>
+                    <p className="text-gray-500">Assigned Engineer: {assignedEngineer || 'Not Assigned'}</p>
 
                     {role === 'admin' && (
-                        <select value={assignedEngineer} onChange={handleAssignEngineer}>
+                        <select 
+                            value={assignedEngineer} 
+                            onChange={handleAssignEngineer} 
+                            className="w-full border border-gray-300 p-2 rounded-md mt-2"
+                        >
                             <option value="Not Assigned">Not Assigned</option>
                             {supportEngineers.map(engineer => (
                                 <option key={engineer.uid} value={engineer.uid}>
@@ -122,8 +143,20 @@ const TicketItem = ({ ticket, onDelete, onUpdate, role }) => {
                         </select>
                     )}
 
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => onDelete(ticket._id)}>Delete</button>
+                    <div className="flex space-x-2 mt-4">
+                        <button 
+                            onClick={() => setIsEditing(true)} 
+                            className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+                        >
+                            Edit
+                        </button>
+                        <button 
+                            onClick={() => onDelete(ticket._id)} 
+                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

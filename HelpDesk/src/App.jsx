@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import React from 'react';
+import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import CreateTicketPage from './pages/CreateTicketPage';
 import ViewTicketsPage from './pages/ViewTicketsPage';
@@ -13,6 +14,10 @@ import SignUpPage from './pages/SignUp';
 import LoginPage from './pages/Login';
 import ManageUsers from './pages/ManageUsers';
 import UserAccount from './pages/UserAccount';
+import EntrancePage from './pages/EntrancePage';
+
+
+
 
 
 function App() {
@@ -30,9 +35,10 @@ function App() {
     return (
         <Router>
             <Routes>
+                <Route path="/navbar" element={<Navbar />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/"element={user ? <HomePage /> : <Navigate to="/login" />}/>
+                <Route path="/home"element={user ? <HomePage /> : <Navigate to="/login" />}/>
                 <Route path="/create-ticket" element={<><CreateTicketPage /></>} />
                 <Route path="/view-tickets" element={<><ViewTicketsPage /></>} />
                 <Route path="/ticket/:id" element={<><TicketDetailsPage /></>} />
@@ -41,6 +47,7 @@ function App() {
                 <Route path="/engineer-dashboard" element={<><SupportEngineerDashboardPage /></>} />
                 <Route path="/tickets/:id/edit" element={<><UpdateTicketPage /></>} />
                 <Route path="/user-account" element={<><UserAccount /></>} />
+                <Route path="/" element={<><EntrancePage /></>} />
             </Routes>
         </Router>
     );

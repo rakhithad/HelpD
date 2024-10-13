@@ -3,6 +3,8 @@ import TicketList from '../components/TicketList';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase'; // Firebase auth
+import Navbar from '../components/Navbar';
+
 
 const ViewTicketsPage = () => {
     const [tickets, setTickets] = useState([]);
@@ -40,7 +42,6 @@ const ViewTicketsPage = () => {
     
         fetchUserRole();
     }, [uid]);
-    
 
     // Fetch tickets when the role is determined
     useEffect(() => {
@@ -69,15 +70,27 @@ const ViewTicketsPage = () => {
     };
 
     return (
-        <div>
-            <h2>View Tickets</h2>
-            {tickets.length > 0 ? (
-                <TicketList tickets={tickets} onDelete={handleDelete} />
-            ) : (
-                <p>No tickets to display</p>
-            )}
-            <button type="button" onClick={() => navigate('/')}>Done</button>
+        <>
+        <Navbar/>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+            <h2 className="text-2xl font-bold mb-6">View Tickets</h2>
+            <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">
+                {tickets.length > 0 ? (
+                    <TicketList tickets={tickets} onDelete={handleDelete} />
+                ) : (
+                    <p className="text-center text-gray-500">No tickets to display</p>
+                )}
+                <button
+                    type="button"
+                    onClick={() => navigate('/home')}
+                    className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200"
+                >
+                    Done
+                </button>
+            </div>
         </div>
+        </>
+        
     );
 };
 

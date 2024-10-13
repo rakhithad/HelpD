@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { auth } from '../firebase'; // Your firebase config
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+
 
 const SignUpPage = () => {
     const [email, setEmail] = useState('');
@@ -50,20 +52,22 @@ const SignUpPage = () => {
     };
 
     const handleDoneClick = () => {
-        // Navigate to the admin page after signup
         navigate('/admin-dashboard');
     };
 
     return (
-        <div>
-            <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
+        <>
+        <Navbar />
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+            <h2 className="text-3xl font-bold mb-6">Register a User</h2>
+            <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md space-y-4">
                 <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                     required
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     type="password"
@@ -71,40 +75,64 @@ const SignUpPage = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     required
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="Full Name"
+                    placeholder="First Name"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Last Name"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     type="text"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     placeholder="Phone Number"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="Location"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                <select 
+                    value={role} 
+                    onChange={(e) => setRole(e.target.value)} 
+                    className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
                     <option value="customer">Customer</option>
                     <option value="admin">Admin</option>
                     <option value="support_engineer">Support Engineer</option>
                 </select>
-                <button type="submit">Sign Up</button>
-                <button type="button" onClick={handleDoneClick}>Done</button>
+                <div className="flex space-x-4">
+                    <button 
+                        type="submit" 
+                        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
+                    >
+                        Sign Up
+                    </button>
+                    <button 
+                        type="button" 
+                        onClick={handleDoneClick} 
+                        className="w-full bg-gray-500 text-white py-2 rounded-md hover:bg-gray-600 transition duration-200"
+                    >
+                        Done
+                    </button>
+                </div>
             </form>
         </div>
+        </>
+        
     );
 };
 

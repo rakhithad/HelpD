@@ -31,10 +31,10 @@ const TicketForm = ({ onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="p-4 bg-gray-100 rounded">
             <div>
-                <label>Company or Person:</label>
-                <input
+                <label className="block font-semibold">Company or Person:</label>
+                <input className="border p-2 w-full"
                     type="text"
                     value={account}
                     onChange={(e) => setAccount(e.target.value)}
@@ -42,8 +42,8 @@ const TicketForm = ({ onSubmit }) => {
                 />
             </div>
             <div>
-                <label>Title:</label>
-                <input
+                <label className="block font-semibold">Title:</label>
+                <input className="border p-2 w-full"
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
@@ -51,16 +51,16 @@ const TicketForm = ({ onSubmit }) => {
                 />
             </div>
             <div>
-                <label>Description:</label>
-                <textarea
+                <label className="block font-semibold">Description:</label>
+                <textarea className="border p-2 w-full"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     required
                 ></textarea>
             </div>
             <div>
-                <label>Status:</label>
-                <select
+                <label className="block font-semibold">Status:</label>
+                <select className="border p-2 w-full"
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     required
@@ -72,8 +72,8 @@ const TicketForm = ({ onSubmit }) => {
                 </select>
             </div>
             <div>
-                <label>Priority:</label>
-                <input
+                <label className="block font-semibold">Priority:</label>
+                <input className="border p-2 w-full"
                     type="number"
                     value={priority}
                     onChange={(e) => setPriority(Number(e.target.value))}
@@ -82,7 +82,7 @@ const TicketForm = ({ onSubmit }) => {
                     required
                 />
             </div>
-            <button type="submit">Save</button>
+            <button type="submit" className="mt-6 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Save</button>
         </form>
     );
 };
