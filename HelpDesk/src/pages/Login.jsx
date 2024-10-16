@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase'; // Your firebase config
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 
 const LoginPage = () => {
@@ -58,6 +59,7 @@ const LoginPage = () => {
                 </form>
             </div>
         </div>
+        <Footer />
         </>
         
     );

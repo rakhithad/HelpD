@@ -11,7 +11,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users/me'); // Your API for fetching user details
+                const response = await axios.get('http://localhost:5000/api/users'); // Your API for fetching user details
                 if (response.data) {
                     setIsLoggedIn(true);
                     setFirstName(response.data.firstName);
