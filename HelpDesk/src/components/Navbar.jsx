@@ -1,21 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 // import bannerlogo from '../images/bannerlogo.png'; // Uncomment if you have a logo
 
 const Navbar = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [firstName, setFirstName] = useState('');
-
+    
     // Simulate checking login status
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/users'); // Your API for fetching user details
-                if (response.data) {
-                    setIsLoggedIn(true);
-                    setFirstName(response.data.firstName);
-                }
+                await axios.get('http://localhost:5000/api/users'); // Your API for fetching user details
             } catch (error) {
                 console.log('Not logged in', error);
             }
@@ -41,13 +35,9 @@ const Navbar = () => {
 
                 {/* Right Section: Login or User's First Name */}
                 <div>
-                    {isLoggedIn ? (
-                        <span className="text-white">{firstName}</span>
-                    ) : (
                         <Link to="/login" className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800">
                             Login
                         </Link>
-                    )}
                 </div>
             </div>
         </nav>

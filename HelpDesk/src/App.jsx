@@ -15,6 +15,7 @@ import LoginPage from './pages/Login';
 import ManageUsers from './pages/ManageUsers';
 import UserAccount from './pages/UserAccount';
 import EntrancePage from './pages/EntrancePage';
+import Dashboard from './pages/Dashboard';
 
 
 
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/tickets/:id/edit" element={<><UpdateTicketPage /></>} />
                 <Route path="/user-account" element={<><UserAccount /></>} />
                 <Route path="/" element={<><EntrancePage /></>} />
+                <Route path="/dashboard" element={<><Dashboard /></>} />
             </Routes>
         </Router>
     );

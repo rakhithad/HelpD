@@ -24,6 +24,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/all-tickets', async (req, res) => {
+    console.log('Fetching all tickets route hit');
+    
+    try {
+        // Fetch all tickets from the database, no role or UID filtering
+        const tickets = await Ticket.find({});
+        console.log('Tickets found:', tickets);  // Debugging output
+        res.json(tickets);  // Return all tickets
+    } catch (error) {
+        console.error('Error fetching tickets:', error);
+        res.status(500).json({ message: 'Error fetching tickets', error });
+    }
+});
+
 // Get a single ticket
 router.get('/:id', async (req, res) => {
     try {

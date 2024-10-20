@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 
 
 const HomePage = () => {
     return (
         <>
-        <Navbar/>
+        <Sidebar/>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <h1 className="text-3xl font-bold mb-6">Welcome to the Help Desk System</h1>
             <nav>
