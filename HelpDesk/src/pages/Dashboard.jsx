@@ -63,7 +63,7 @@ const Dashboard = () => {
         };
 
         fetchTickets();
-    }, []);
+    }, [uid, role]);
 
     // Function to handle card click and show corresponding tickets
     const handleCardClick = async (statusType) => {
