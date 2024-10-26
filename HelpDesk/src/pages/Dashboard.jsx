@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { auth } from '../firebase'; // Firebase auth
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar'; // Import the Sidebar component
 
 const Dashboard = () => {
@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [role, setRole] = useState(null);
     const [selectedTickets, setSelectedTickets] = useState([]);  // To hold selected tickets
     const [ticketType, setTicketType] = useState('');  // To hold the type of tickets (e.g., "Open Tickets")
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         const user = auth.currentUser;
@@ -106,9 +106,10 @@ const Dashboard = () => {
         <div className="flex">
             {/* Sidebar */}
             <Sidebar />
-
+            
             {/* Dashboard Content */}
-            <div className="flex-grow p-4 min-h-screen bg-gray-100">
+            <div className="flex-grow p-4 min-h-screen bg-gray-100 pl-64">
+            <h1 className="text-3xl font-bold mb-6 text-center">Welcome to the Help Desk System</h1>
                 {/* Cards 2x2 Grid Layout */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                     {/* Open Tickets */}
@@ -155,22 +156,15 @@ const Dashboard = () => {
                         <ul>
                             {selectedTickets.map(ticket => (
                                 <li key={ticket._id} className="mb-2 border-b pb-2">
-                                    <p><strong>Ticket ID:</strong> {ticket._id}</p>
+                                    <p><strong>Account:</strong> {ticket.account}</p>
                                     <p><strong>Title:</strong> {ticket.title}</p>
-                                    <p><strong>Status:</strong> {ticket.status}</p>
+                                    <p><strong>Priority:</strong> {ticket.priority}</p>
+                                    <p><strong>Engineer:</strong> {ticket.assignedSupportEngineer}</p>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
-
-                <button
-                    type="button"
-                    onClick={() => navigate('/home')}
-                    className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200"
-                >
-                    Done
-                </button>
             </div>
         </div>
     );

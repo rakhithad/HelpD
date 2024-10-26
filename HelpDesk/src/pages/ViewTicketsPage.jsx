@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase'; // Firebase auth
 import Navbar from '../components/Navbar';
+import { Link } from 'react-router-dom';
 
 
 const ViewTicketsPage = () => {
@@ -74,6 +75,12 @@ const ViewTicketsPage = () => {
         <Navbar/>
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
             <h2 className="text-2xl font-bold mb-6">View Tickets</h2>
+            <Link 
+                            to="/create-ticket" 
+                            className="block w-48 text-center bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition duration-200"
+                        >
+                            Create Ticket
+                        </Link>
             <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-md">
                 {tickets.length > 0 ? (
                     <TicketList tickets={tickets} onDelete={handleDelete} />
